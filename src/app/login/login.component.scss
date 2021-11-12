@@ -63,21 +63,6 @@
       }
     }
   }
-  // .userInfo {
-  //   position: absolute;
-  //   top: -2.3rem;
-  //   width: 100%;
-  //   border-bottom: 1px solid #999;
-  //   padding-bottom: 12px;
-  //   ul {
-  //     li {
-  //       display: inline-block;
-  //       font-size: 12px;
-  //       margin-right: 1rem;
-  //       font-family: "Montserrat", sans-serif;
-  //     }
-  //   }
-  // }
 
   .md-form {
     position: relative;
@@ -93,23 +78,15 @@
     position: absolute;
   }
 
-  // input[type="number"]::-webkit-inner-spin-button,
-  // input[type="number"]::-webkit-outer-spin-button {
-  //   -webkit-appearance: none;
-
-  //   margin: 0;
-  // }
-
-  // .md-form .prefix ~ label {
-  //   margin-left: 2.5rem;
-  // }
-
-  // .md-form label {
-  //   position: absolute;
-  //   right: 0;
-  //   color: #f8b51f;
-  //   font-weight: bold;
-  // }
+  .form-control,
+  .is-focused .form-control {
+    background-image: linear-gradient(
+        to top,
+        #9c27b0 2px,
+        rgba(156, 39, 176, 0) 2px
+      ),
+      linear-gradient(to top, purple 2px, rgba(210, 210, 210, 0) 1px) !important;
+  }
 
   form-control:focus {
     color: darkgreen !important;
