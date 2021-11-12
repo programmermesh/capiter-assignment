@@ -1,0 +1,136 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <a class="btn btn-info btn-round mb-5" (click)="openCreateModal()">Create user</a> 
+      <div class="row">
+        <div class="col-md-4" *ngFor="let user of usersList| paginate
+        : {
+            itemsPerPage: per_page,
+            currentPage: page,
+            totalItems: totalItems
+          }, let i = index"
+          [class.active]="i == selectedRow">
+            <div class="card card-profile">
+                <div class="card-avatar">
+                    <a>
+                        <img class="img" [src]="user.avatar" />
+                    </a>
+                </div>
+                <div class="card-body">
+                    <h4 class="card-title">{{user.first_name}} {{user.last_name}}</h4>
+                    <p class="card-description">
+                        {{user.email}}
+                    </p>
+                    <a class="btn btn-info btn-sm btn-round" (click)="onSelected(i)" (click)="openViewDialog()">View</a>
+                    <a class="btn btn-danger btn-sm btn-round" (click)="onSelected(i)" (click)="openDeleteModal()">Delete</a>
+                    <a  class="btn btn-warning btn-sm btn-round" (click)="onSelected(i)" (click)="openUpdateModal()">Update</a>
+                </div>
+            </div>
+        </div>
+      </div>
+      <pagination-controls
+      (pageChange)="gty((page = $event))"
+    ></pagination-controls>
+  </div>
+</div>
+
+<!-- view modal -->
+<ng-template #viewModal>
+        <div class="card-body">
+            <h6 class="card-category text-gray">Profile</h6>
+            <a class="card-avatar">
+              <img class="img" [src]="selectedUser.avatar" />
+          </a>
+            <h4 class="card-title">{{selectedUser.first_name}} {{selectedUser.last_name}}</h4>
+            <p class="card-description">
+              {{selectedUser.email}} 
+            </p>
+        </div>
+<div mat-dialog-actions>
+    <a matDialogClose class="btn btn-danger btn-sm btn-round" (click)="closeDialog()">Close</a>
+    <a class="btn btn-info btn-sm btn-round">Follow</a>
+</div>
+</ng-template>
+
+<!-- create modal -->
+<ng-template #createModal>
+        <div class="row card">
+                    <div class="card-header card-header-info">
+                        <h4 class="card-title">Create User</h4>
+                        <p class="card-category">Complete your profile</p>
+                    </div>
+                    <div class="card-body">
+                        <form [formGroup]="createUserForm" autocomplete="off">
+                            <div class="row">
+                                <div class="col-md-6">
+                                  <mat-form-field class="example-full-width">
+                                    <input matInput placeholder="First Name" type="text" formControlName ="first_name" required>
+                                  </mat-form-field>
+                                </div>
+                                <div class="col-md-6">
+                                  <mat-form-field class="example-full-width">
+                                    <input matInput placeholder="Last Name" type="text" formControlName ="last_name" required>
+                                  </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                  <mat-form-field class="example-full-width">
+                                    <input matInput placeholder="email" type="text" formControlName ="email" required>
+                                  </mat-form-field>
+                                </div>
+                                <div class="col-md-6">
+                                  <mat-form-field class="example-full-width">
+                                    <input matInput placeholder="Avartar Url" type="text" formControlName ="avartarUrl" required>
+                                  </mat-form-field>
+                                </div>
+                            </div>
+                            <div mat-dialog-actions>
+                              <a matDialogClose class="btn btn-danger btn-sm btn-round">Close</a>
+                              <a type="submit" class="btn btn-info btn-sm btn-round pull-right" (click)="createUser()">Save</a>
+                          </div>
+                        </form>
+                    </div>
+        </div>
+</ng-template>
+
+<!-- update modal -->
+<ng-template #updateModal>
+        <div class="row card">
+                    <div class="card-header card-header-info">
+                        <h4 class="card-title">Update User</h4>
+                        <p class="card-category">Update user profile</p>
+                    </div>
+                    <div class="card-body">
+                        <form [formGroup]="updateUserForm" autocomplete="off">
+                            <div class="row">
+                                <div class="col-md-6">
+                                  <mat-form-field class="example-full-width">
+                                    <input matInput placeholder="First Name" type="text" formControlName ="first_name" [(ngModel)]="selectedUser.first_name" required>
+                                  </mat-form-field>
+                                </div>
+                                <div class="col-md-6">
+                                  <mat-form-field class="example-full-width">
+                                    <input matInput placeholder="Last Name" type="text" formControlName ="last_name" [(ngModel)]="selectedUser.last_name" required>
+                                  </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                  <mat-form-field class="example-full-width">
+                                    <input matInput placeholder="email" type="text" formControlName ="email" [(ngModel)]="selectedUser.email" required>
+                                  </mat-form-field>
+                                </div>
+                                <div class="col-md-6">
+                                  <mat-form-field class="example-full-width">
+                                    <input matInput placeholder="Avartar Url" type="text" formControlName ="avartarUrl" [(ngModel)]="selectedUser.avatar" required>
+                                  </mat-form-field>
+                                </div>
+                            </div>
+                            <div mat-dialog-actions>
+                              <a matDialogClose class="btn btn-danger btn-sm btn-round">Close</a>
+                              <a type="submit" class="btn btn-warning btn-sm btn-round pull-right" (click)="updateUser()">Update</a>
+                          </div>
+                        </form>
+                    </div>
+        </div>
+</ng-template>
